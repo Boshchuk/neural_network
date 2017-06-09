@@ -15,14 +15,13 @@ namespace HebbNeuron
         /// Demostrate work of Neoron
         /// </summary>
         /// <param name="samples">Sample data</param>
-        public void Test(IEnumerable<int> samples)
+        public void Test(List<List<int>> samples)
         {
-            var sampleA = samples.ToArray();
             int y = 0;
-            for (int i = 0; i < sampleA.Length; i++)
+            for (var i = 0; i < samples.Count; i++)
             {
-                var weightedSum = Weight1 * sampleA[0] +
-                                  Weight2 * sampleA[1] +
+                var weightedSum = Weight1 * samples[i][0] +
+                                  Weight2 * samples[i][1] +
                                   Threshold;
                 if (weightedSum > 0)
                 {
@@ -32,8 +31,22 @@ namespace HebbNeuron
                 {
                     y = -1;
                 }
+                var str = string.Format("({0}, {1}): {2}", samples[i][0], samples[i][1], y);
+                System.Console.WriteLine(str);
             }
-            System.Console.WriteLine(string.Format("({0}, {1}): {2}", sampleA[0], sampleA[1]), y);
+        }
+
+        public void Train(List<List<int>> samples, IList<int> targets)
+        {
+            var length = samples.Count;
+            for (var i = 0; i < length; i++)
+            {
+                Weight1 += samples[i][0] * targets[i];
+                Weight1 += samples[i][1] * targets[i];
+                Threshold += targets[i];
+            }
         }
     }
+
+  
 }
