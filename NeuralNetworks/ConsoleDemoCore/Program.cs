@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Neurons;
 
-namespace HebbNeuron
+namespace ConsoleDemoCore
 {
     class Program
     {
@@ -17,7 +18,7 @@ namespace HebbNeuron
                 new List<int> { 1, 1 },
             };
 
-            var targets = new List<int>()
+            var targets = new List<int>
             {
                 -1,
                 1,
